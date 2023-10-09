@@ -1,6 +1,7 @@
 import { Center, Box, Grid, GridItem, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { ModalInputProduct } from './modal';
+
 export const ProductCard = ({ product, fetchProducts }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -15,7 +16,13 @@ export const ProductCard = ({ product, fetchProducts }) => {
         onClick={onOpen}
       >
         <Box maxW={'216px'} maxH={'154px'} padding={'0px 15px 0px 0px'}>
-          <img src={product.url} alt='' />
+          <img
+            src={`http://localhost:2500/public/product/${product.image_name}`}
+            width='100'
+            height='100'
+            objectFit='cover'
+            alt=''
+          />
         </Box>
         <Box
           fontWeight='500'
@@ -23,8 +30,8 @@ export const ProductCard = ({ product, fetchProducts }) => {
           maxWidth={'273px'}
           padding={'0px 20px'}
         >
-          <Box marginBottom={'8px'}>
-            <h2 style={{ marginBottom: '8px' }}>{product.name}</h2>
+          <Box>
+            <h2 className='bg-purple-400'>{product.product_name}</h2>
           </Box>
 
           <span style={{ color: '#159953' }}>

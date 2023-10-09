@@ -11,31 +11,31 @@ export const ProductListPage = ({ search }) => {
   const [products, setProducts] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const fetchProducts = async () => {
+    try {
+      const res = await api.get('/products');
+      setProducts([...res.data.data]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // const fetchProducts = async () => {
   //   try {
-  //     const res = await api.get("/products");
+  //     const res = await api.get('/products', {
+  //       params: { product_name: search },
+  //     });
+
+  // localhost:2000/products?name=search
+  // like berbeda dengan equal
+  //sepatu , sepatu kuda
+  //api.get("/products?name=" + search)
+  //products?name_like=""
   //     setProducts([...res.data]);
   //   } catch (err) {
   //     console.log(err);
   //   }
   // };
-
-  const fetchProducts = async () => {
-    try {
-      const res = await api.get('/products/name', {
-        params: { product_name: search },
-      });
-
-      // localhost:2000/products?name=search
-      // like berbeda dengan equal
-      //sepatu , sepatu kuda
-      //api.get("/products?name=" + search)
-      //products?name_like=""
-      setProducts([...res.data]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     // setFiltered(
@@ -48,12 +48,9 @@ export const ProductListPage = ({ search }) => {
   // search =""
   //search ="y"
 
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
   return (
     <>
-      <Center alignItems={'flex-start'} marginTop={'35px'}>
+      <Center className='bg-white' alignItems={'flex-start'} marginTop={'35px'}>
         <ProductList
           // search={search} // untuk filter
           products={[...products]} // data
@@ -66,7 +63,6 @@ export const ProductListPage = ({ search }) => {
             alt=''
             style={{
               position: 'fixed',
-              backgroundColor: 'white',
               borderRadius: '50%',
               objectFit: 'cover',
               cursor: 'pointer',
